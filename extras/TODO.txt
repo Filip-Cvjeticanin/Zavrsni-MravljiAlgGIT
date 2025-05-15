@@ -1,0 +1,31 @@
+Promijenjivi parametri: ================================================
+1) Broj varijabi funkcije
+2) Broj Mrava
+3) Broj Mrava koji se odabire nakon svake iteracije
+4) Početna količina feromona na svakom bridu
+5) Brzina isparavanja feromona (0 - 1)
+
+=============================================
+Pseudo kod:
+
+ponavljaj dok nije kraj
+    ponovi za svakog mrava
+        stvori rješenje
+        vrednuj rješenje
+    kraj ponovi
+
+    odaberi (najbolji) podskup mrava
+
+    ponovi za sve odabrane
+        azuriraj feromonske tragove
+    kraj ponovi
+
+    ispari feromonske tragove svih bridova
+kraj ponavljaj
+
+
+===================================================
+Zadatci:
+    1) Napravi klasu za generiranje i handlanje stabla
+    2) Napravi klasu za mrava
+    3) Napiši inačicu pseudokoda
