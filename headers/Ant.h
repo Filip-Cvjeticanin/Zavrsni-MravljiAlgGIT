@@ -9,15 +9,19 @@
 #include <cmath>
 #include "./parameters.h"
 
+class Ant;
+
 void generateMask(int x, std::vector<bool> &mask);
+bool compareAntsByFitness(Ant* a, Ant* b);
 
 class Ant {
 public:
     std::vector <bool> Path;
     std::vector <bool> truthTable;
     double fitness;
+    int id;
 
-    Ant();
+    Ant(int id = -1);
 
     void walk(Graph* g);
     void displayPath();

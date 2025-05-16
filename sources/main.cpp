@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <algorithm>
+
 #include "../headers/parameters.h"
 #include "../headers/Graph.h"
 #include "../headers/FormulaParsing.h"
@@ -87,7 +89,7 @@ int main() {
     // ...
     // ...
 
-    cout << "\n\nTestiranje klase mrava:\n";
+    /*cout << "\n\nTestiranje klase mrava:\n";
     Ant *a2 = new Ant();
     char c = 'n';
     while (c == 'n') {
@@ -98,6 +100,23 @@ int main() {
         a2->displayTruthTable();
         cout << a2->evalFitness(TABLE);
         cin >> c;
+    }*/
+
+    Ant* antPopulation[numberOfAnts];
+    for (int i = 0; i < numberOfAnts; i++) {
+        antPopulation[i] = new Ant(i);
+        antPopulation[i]->walk(&g);
+        antPopulation[i]->evalFitness(TABLE);
+        cout << "i:" << i << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+    }
+    sort(antPopulation, antPopulation + numberOfAnts, compareAntsByFitness);
+    for (int i = 0; i < numberOfAnts; i++) {
+        cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+    }
+    for (int i = 0;i < numberOfChosenAnts; i++) {
+        cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+        antPopulation[i]->displayPath();
+        antPopulation[i]->displayTruthTable();
     }
     return 0;
 }

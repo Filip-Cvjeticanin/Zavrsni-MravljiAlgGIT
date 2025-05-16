@@ -25,7 +25,12 @@ void generateMask(int x, std::vector<bool> &mask) {
     }
 }
 
-Ant::Ant() {
+bool compareAntsByFitness(Ant* a, Ant* b) {
+    return a->fitness > b->fitness;
+}
+
+Ant::Ant(int id) {
+    this->id = id;
     fitness = 0;
     for (int i = 0; i < pow(2, numberOfVariables); i++) {
         truthTable.push_back(0);
@@ -57,6 +62,7 @@ void Ant::walk(Graph* g) {
 }
 
 void Ant::displayPath() {
+    cout << "Ant's path: " << endl;
     for (int i = 0; i < pow(2,numberOfVariables); i++) {
         printf("%4d: ", i);
         for (int j = 0; j < numberOfVariables; j++) {
@@ -109,7 +115,7 @@ void Ant::makeTruthTable() {
 void Ant::displayTruthTable() {
     cout << "Ant's truth table:" << endl;
     for (int i = 0; i < truthTable.size(); i++) {
-        cout << i << ": " << truthTable[i] << endl;
+        cout << "   " << i << ": " << truthTable[i] << endl;
     }
 }
 
