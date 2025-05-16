@@ -10,9 +10,20 @@
 
 #include "../headers/parameters.h"
 #include "../headers/Ant.h"
+
+#include <filesystem>
+
 #include "../headers/Graph.h"
 
 using namespace std;
+
+void generateMask(int x, std::vector<bool> &mask) {
+    mask.clear();
+    for (int j = 0; j < numberOfVariables; j++) {
+        mask.insert(mask.begin(), x % 2);
+        x = x / 2;
+    }
+}
 
 Ant::Ant() {
     fitness = 0;
@@ -53,5 +64,51 @@ void Ant::displayPath() {
         }
         cout << endl;
     }
+}
+
+double Ant::makeTruthTable() {
+
+    for (int i = 0; i < pow(2,numberOfVariables); i++) {
+
+        truthTable[i] = 0;
+
+        vector<bool> values;
+        generateMask(i, values);
+
+        int pathCounter = 0;
+        for (int j = 0; j < pow(2,numberOfVariables); j++) {
+
+            vector<bool> notTemp;
+            generateMask(j, notTemp);
+
+            bool result;
+            bool checked = false;
+            bool allGood = true;
+            //cout << " i j " << i << " " << j << "==============" <<endl;
+            for (int k = 0; k < numberOfVariables; k++) {
+                //cout << pathCounter<< ": "<< Path[pathCounter] << endl;
+                if (Path[pathCounter] && values[k] == notTemp[k]) {
+                    checked = true;
+                }
+                else if (Path[pathCounter] && values[k] != notTemp[k]) {
+                    allGood = false;
+                }
+                pathCounter++;
+
+            }
+            result = checked && allGood;
+            //cout << "checked " << checked << endl;
+            //cout << "allGood " << allGood << endl;
+            //cout << "result " << result << endl;
+
+            truthTable[i] = truthTable[i] || result;
+        }
+    }
+
+    cout << "Ant's truth table:" << endl;
+    for (int i = 0; i < truthTable.size(); i++) {
+        cout << i << ": " << truthTable[i] << endl;
+    }
+    return 0;
 }
 

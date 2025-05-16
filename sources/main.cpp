@@ -98,6 +98,7 @@ int main() {
         cout << "Mrav 2: " << endl;
         a2->walk(&g);
         a2->displayPath();
+        a2->makeTruthTable();
         cin >> c;
     }
     return 0;

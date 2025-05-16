@@ -9,6 +9,8 @@
 #include <cmath>
 #include "./parameters.h"
 
+void generateMask(int x, std::vector<bool> &mask);
+
 class Ant {
 public:
     std::vector <bool> Path;
@@ -19,6 +21,7 @@ public:
 
     void walk(Graph* g);
     void displayPath();
+    double makeTruthTable();
 
 
 };
