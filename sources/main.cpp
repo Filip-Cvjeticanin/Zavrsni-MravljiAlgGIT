@@ -88,17 +88,15 @@ int main() {
     // ...
 
     cout << "\n\nTestiranje klase mrava:\n";
-    Ant *a1 = new Ant();
     Ant *a2 = new Ant();
     char c = 'n';
     while (c == 'n') {
-        cout << "Mrav 1: " << endl;
-        a1->walk(&g);
-        a1->displayPath();
         cout << "Mrav 2: " << endl;
         a2->walk(&g);
         a2->displayPath();
         a2->makeTruthTable();
+        a2->displayTruthTable();
+        cout << a2->evalFitness(TABLE);
         cin >> c;
     }
     return 0;

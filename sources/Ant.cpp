@@ -66,7 +66,7 @@ void Ant::displayPath() {
     }
 }
 
-double Ant::makeTruthTable() {
+void Ant::makeTruthTable() {
 
     for (int i = 0; i < pow(2,numberOfVariables); i++) {
 
@@ -104,11 +104,31 @@ double Ant::makeTruthTable() {
             truthTable[i] = truthTable[i] || result;
         }
     }
+}
 
+void Ant::displayTruthTable() {
     cout << "Ant's truth table:" << endl;
     for (int i = 0; i < truthTable.size(); i++) {
         cout << i << ": " << truthTable[i] << endl;
     }
-    return 0;
 }
 
+double Ant::evalFitness(const std::vector <bool> &TABLE) {
+    this->makeTruthTable();
+
+    int pathSum = pow(2,numberOfVariables);
+    int tableMatch = 0;
+
+    for (int i = 0; i < numberOfVariables*pow(2,numberOfVariables); i++) {
+        pathSum += Path[i];
+    }
+
+    for (int i = 0; i < pow(2,numberOfVariables); i++) {
+        if (TABLE[i] == truthTable[i]) tableMatch++;
+    }
+
+    double sol = (double) tableMatch / pathSum;
+    if (tableMatch == pow(2,numberOfVariables)) sol += 1;
+    fitness = sol;
+    return sol;
+}

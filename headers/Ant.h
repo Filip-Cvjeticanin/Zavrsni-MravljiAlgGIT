@@ -21,8 +21,9 @@ public:
 
     void walk(Graph* g);
     void displayPath();
-    double makeTruthTable();
-
+    void makeTruthTable();
+    void displayTruthTable();
+    double evalFitness(const std::vector <bool> &TABLE);
 
 };
 
