@@ -28,7 +28,7 @@ void Node::setNodes(Node* nZ, Node* nO) {
 }
 
 
-void Node::setPheromones(float nZP, float nOP) {
+void Node::setPheromones(double nZP, double nOP) {
     nextZeroPheromone = nZP;
     nextOnePheromone = nOP;
 }
@@ -85,7 +85,7 @@ Graph::Graph() {
 }
 
 
-void Graph::setPheromone(int fromLayer, bool fromType, bool toType, float value) {
+void Graph::setPheromone(int fromLayer, bool fromType, bool toType, double value) {
     Node* curr = startNode;
     for (int i = 0; i < fromLayer; i++) {
         if (curr == nullptr) {

@@ -7,8 +7,8 @@
 inline int numberOfVariables = 4;
 inline int numberOfAnts = 500;
 inline int numberOfChosenAnts = 5;
-inline float initialConcentration = 1;
-inline float diminishRate = 0.2;
-inline std::string truthTable = "1101"; // mora biti dužine 2 ** numberOfVariables
+inline double initialConcentration = 1;
+inline double diminishRate = 0.2;
+inline std::string truthTable = "1100110011001111"; // mora biti dužine 2 ** numberOfVariables
 
 #endif
