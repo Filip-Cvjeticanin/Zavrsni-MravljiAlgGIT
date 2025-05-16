@@ -4,7 +4,7 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-inline int numberOfVariables = 2;
+inline int numberOfVariables = 4;
 inline int numberOfAnts = 500;
 inline int numberOfChosenAnts = 5;
 inline float initialConcentration = 1;

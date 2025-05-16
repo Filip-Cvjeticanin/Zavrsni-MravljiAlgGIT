@@ -17,10 +17,11 @@ int main() {
 
     g.printGraph();
 
-
-
     // Unos tablice istinitosti i spremanje u memoriju.
     vector<bool> TABLE;
+    for (int i = 0; i < pow(2, numberOfVariables); i++) {
+        TABLE.push_back(0);
+    }
     bool choice;
     cout << "\n\nUpisi 0 za koristenje tablice istinitosti, 1 za unos formule: ";
     cin >> choice;
@@ -28,17 +29,34 @@ int main() {
         //cin >> truthTable; OVDJE SE MOŽE OMOGUĆITI UNOS TABLICE ISTINITOSTI
         //                    inače se koristi default postavljen u parameters.h
         for (int i = 0; i < pow(2, numberOfVariables); i++) {
-            if (truthTable[i] == '0') TABLE.push_back(0);
-            else TABLE.push_back(1);
+            if (truthTable[i] == '0') TABLE[i] = 0;
+            else TABLE[i] = 1;
         }
     }
-    else {
+    else if (choice == 1){
         // Izrada tablice istinitosti iz formule i spremanje u memoriju.
         string formula;
         getline(cin, formula);
         getline(cin, formula);
         vector<string> konjunkti;
         split(konjunkti, formula);
+
+        // POZIV NOVE FUNKCIJE
+        for (int i = 0; i < konjunkti.size(); i++) {
+            vector<int> switchList;
+            findIndexesToActivate(konjunkti[i], switchList, numberOfVariables);
+
+            for (int j = 0; j < switchList.size(); j++) {
+                cout << switchList[j] << " ";
+                TABLE[switchList[j]] = 1;
+            }
+            cout << endl;
+        }
+
+        cout << "TRUTH TABLE:\n";
+        for (int i = 0; i < TABLE.size(); i++) {
+            cout << i << ": "<< TABLE[i] << endl;
+        }
     }
 
     // Deaktiviranje nepotrebnih konjunkta =>
@@ -58,5 +76,12 @@ int main() {
     cout << "\n\nGraf nakon isključivanja nepotrebnih konjunkata\n";
     g.printGraph();
     g.drawGraph();
+
+
+    // OVDJE POCINJEMO SA SIMULACIJOM MRAVA
+    // ...
+    // ...
+    // ...
+    
     return 0;
 }
