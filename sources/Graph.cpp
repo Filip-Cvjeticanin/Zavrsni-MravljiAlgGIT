@@ -13,6 +13,7 @@ Node::Node(bool t,
     end = e;
     type = t;
 
+    sibling = nullptr;
     nextZero = nullptr;
     nextOne = nullptr;
     nextZeroPheromone = initialConcentration;
@@ -31,6 +32,8 @@ void Node::setPheromones(float nZP, float nOP) {
     nextOnePheromone = nOP;
 }
 
+
+
 Node::~Node() {
     if (type == 0) {
         delete nextZero;
@@ -42,10 +45,18 @@ Node::~Node() {
 
 Graph::Graph() {
     startNode = new Node();
+    startNode->sibling = startNode;
+    startNode->id = 0;
     numberOfLayers = numberOfVariables * pow(2, numberOfVariables);
 
     Node* newLayerZero = new Node(0);
     Node* newLayerOne = new Node(1);
+
+    newLayerZero->id = 1;
+    newLayerOne->id = 1;
+
+    newLayerZero->sibling = newLayerOne;
+    newLayerOne->sibling = newLayerZero;
 
     startNode->setNodes(newLayerZero, newLayerOne);
 
@@ -55,11 +66,72 @@ Graph::Graph() {
 
         newLayerZero = new Node(0);
         newLayerOne = new Node(1);
+        newLayerZero->id = i + 1;
+        newLayerOne->id = i + 1;
 
-        oldLayerZero->setNodes(newLayerOne, newLayerOne);
+
+        newLayerZero->sibling = newLayerOne;
+        newLayerOne->sibling = newLayerZero;
+
+        oldLayerZero->setNodes(newLayerZero, newLayerOne);
         oldLayerOne->setNodes(newLayerZero, newLayerOne);
+
+
+    }
+
+    newLayerZero->end = true;
+    newLayerOne->end = true;
+}
+
+
+void Graph::setPheromone(int fromLayer, bool fromType, bool toType, float value) {
+    Node* curr = startNode;
+    for (int i = 0; i < fromLayer; i++) {
+        if (curr == nullptr) {
+            cout << "ERROR in setPheromone() ===============================================" << endl;
+            return;
+        }
+        curr = curr->nextZero;
+    }
+
+    if (fromType) curr = curr->sibling;
+    if (!toType) curr->nextZeroPheromone = value;
+    else curr->nextOnePheromone = value;
+}
+
+void Graph::printGraph() {
+    Node* curr0 = startNode;
+    Node* curr1 = startNode;
+
+    cout << "START LAYER:" << endl;
+    for (int i = 0; i < numberOfLayers + 1; i++) {
+        cout << "Layer " << i  << ": " << endl;
+        cout << "   [0-0]:  " << curr0->nextZeroPheromone << ", ";
+        cout << "[0-1]:  " << curr0->nextOnePheromone << ", ";
+        cout << "[1-0]:  " << curr1->nextZeroPheromone << ", ";
+        cout << "[1-1]:  " << curr1->nextOnePheromone << endl;
+        curr0 = curr0->nextZero;
+        curr1 = curr1->nextOne;
     }
 }
+
+void Graph::drawGraph() {
+    Node* curr = startNode;
+    for (int i = 0; i < numberOfLayers; i++) {
+        Node* sib = curr->sibling;
+        printf("               %10d               \n", curr->id);
+        printf("           1                   0       \n");
+        printf("          /  \\                / \\      \n");
+        printf("         1   0               1   0       \n");
+        printf("         |   |               |   |       \n");
+        printf("%10f%10f%10f%10f\n", sib->nextOnePheromone, sib->nextZeroPheromone
+            , curr->nextOnePheromone, curr->nextZeroPheromone);
+        curr = curr->nextZero;
+    }
+}
+
+
+
 
 
 
