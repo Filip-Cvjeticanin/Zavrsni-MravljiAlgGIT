@@ -2,11 +2,11 @@
 // Created by Filip on 5/16/2025.
 //
 
-#include <stdio.h>
-
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <string>
+#include "../headers/FormulaParsing.h"
 
 using namespace std;
 
@@ -27,21 +27,4 @@ void split(vector<string> & vekt, string formula) {
         else tmp += formula[i];
         i++;
     }
-}
-
-int main() {
-    int brojVar;
-    string formula;
-    cin >> brojVar;
-    getline(cin, formula);
-    getline(cin, formula);
-
-    vector<string> konjunkti;
-
-    split(konjunkti, formula);
-
-    for (int i = 0; i < konjunkti.size(); i++) {
-        cout << konjunkti[i] << endl;
-    }
-    return 0;
 }

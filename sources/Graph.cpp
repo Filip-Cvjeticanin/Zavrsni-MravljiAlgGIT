@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../headers/Graph.h"
 #include "../headers/parameters.h"
-#include <math.h>
+#include <cmath>
 using namespace std;
 
 Node::Node(bool t,
@@ -12,6 +12,7 @@ Node::Node(bool t,
 {
     end = e;
     type = t;
+    id = -1;
 
     sibling = nullptr;
     nextZero = nullptr;
@@ -119,7 +120,9 @@ void Graph::drawGraph() {
     Node* curr = startNode;
     for (int i = 0; i < numberOfLayers; i++) {
         Node* sib = curr->sibling;
-        printf("               %10d               \n", curr->id);
+        printf("              +----------+\n");
+        printf("              |LAYER%5d|              \n", curr->id);
+        printf("              +----------+\n");
         printf("           1                   0       \n");
         printf("          /  \\                / \\      \n");
         printf("         1   0               1   0       \n");
@@ -128,6 +131,10 @@ void Graph::drawGraph() {
             , curr->nextOnePheromone, curr->nextZeroPheromone);
         curr = curr->nextZero;
     }
+
+    printf("              +----------+\n");
+    printf("              |LAYER%5d|              \n", curr->id);
+    printf("              +----------+\n");
 }
 
 

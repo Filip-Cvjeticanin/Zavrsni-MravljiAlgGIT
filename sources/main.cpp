@@ -2,10 +2,11 @@
 // Created by Filip on 5/14/2025.
 //
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <vector>
 #include "../headers/parameters.h"
 #include "../headers/Graph.h"
+#include "../headers/FormulaParsing.h"
 
 using namespace std;
 
@@ -20,16 +21,25 @@ int main() {
 
     // Unos tablice istinitosti i spremanje u memoriju.
     vector<bool> TABLE;
-    //cin >> truthTable; OVDJE SE MOŽE OMOGUĆITI UNOS TABLICE ISTINITOSTI
-    //                    inače se koristi default postavljen u parameters.h
-    for (int i = 0; i < pow(2, numberOfVariables); i++) {
-        if (truthTable[i] == '0') TABLE.push_back(0);
-        else TABLE.push_back(1);
+    bool choice;
+    cout << "\n\nUpisi 0 za koristenje tablice istinitosti, 1 za unos formule: ";
+    cin >> choice;
+    if (choice == 0) {
+        //cin >> truthTable; OVDJE SE MOŽE OMOGUĆITI UNOS TABLICE ISTINITOSTI
+        //                    inače se koristi default postavljen u parameters.h
+        for (int i = 0; i < pow(2, numberOfVariables); i++) {
+            if (truthTable[i] == '0') TABLE.push_back(0);
+            else TABLE.push_back(1);
+        }
     }
-
-    // Izrada tablice istinitosti iz formule i spremanje u memoriju.
-    //    ...
-    //    ...
+    else {
+        // Izrada tablice istinitosti iz formule i spremanje u memoriju.
+        string formula;
+        getline(cin, formula);
+        getline(cin, formula);
+        vector<string> konjunkti;
+        split(konjunkti, formula);
+    }
 
     // Deaktiviranje nepotrebnih konjunkta =>
     //       - postavljanje feromonskih tragova za uključivanje određenih
