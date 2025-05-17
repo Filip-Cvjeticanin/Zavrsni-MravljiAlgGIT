@@ -5,9 +5,9 @@
 #define PARAMETERS_H
 
 // Model parameters:
-inline int numberOfIterations = 300; //Linear factor
+inline int numberOfIterations = 500; //Linear factor
 inline int numberOfVariables = 5; // max 26
-inline int numberOfAnts = 500;
+inline int numberOfAnts = 300;
 inline int numberOfChosenAnts = 10;
 inline double initialConcentration = 1;
 inline double diminishRate = 0.2;
