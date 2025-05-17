@@ -180,12 +180,12 @@ void Ant::leavePheromones(Graph *g) {
     for (int i = 0; i < g->numberOfLayers; i++) {
         if (Path[i] == 0) {
             curr->nextZeroPheromone += fitness;
-            if (limitPheromones) curr->nextZeroPheromone = min(curr->nextZeroPheromone, (double) 10);
+            if (limitPheromones) curr->nextZeroPheromone = min(curr->nextZeroPheromone, maxPheromones);
             curr = curr->nextZero;
         }
         else if(Path[i] == 1){
             curr->nextOnePheromone += fitness;
-            if (limitPheromones) curr->nextOnePheromone = min(curr->nextOnePheromone, (double) 10);
+            if (limitPheromones) curr->nextOnePheromone = min(curr->nextOnePheromone, maxPheromones);
             curr = curr->nextOne;
         }
     }

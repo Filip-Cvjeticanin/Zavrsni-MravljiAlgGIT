@@ -5,6 +5,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <chrono>
 
 #include "../headers/parameters.h"
 #include "../headers/Graph.h"
@@ -94,6 +95,7 @@ int main() {
         g.drawGraph();
     }
 
+    auto start = std::chrono::high_resolution_clock::now();
     // Pocetak simulacije mrava.
     Ant* antPopulation[numberOfAnts];
     for (int i = 0; i < numberOfAnts; i++) {
@@ -140,9 +142,15 @@ int main() {
 
     }
 
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+
+    std::cout << "Simulation time: " << elapsed.count() << " ms\n";
+
     if (displayBestSolution) {
         cout << "\nBest fitness: " << antPopulation[0]->fitness << endl;
         cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
     }
+
     return 0;
 }

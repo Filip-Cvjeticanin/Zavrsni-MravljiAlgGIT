@@ -5,9 +5,9 @@
 #define PARAMETERS_H
 
 // Model parameters:
-inline int numberOfIterations = 30; //Linear factor
+inline int numberOfIterations = 50; //Linear factor
 inline int numberOfVariables = 5; // max 26
-inline int numberOfAnts = 3000;
+inline int numberOfAnts = 5000;
 inline int numberOfChosenAnts = 5;
 inline double initialConcentration = 1;
 inline double diminishRate = 0.2;
@@ -17,6 +17,7 @@ inline constexpr bool steadyConvergence = false; // Uses a modification to the i
                                                  // in wrong directions. Requires an increase in numberOfIterations.
                                                  // EXPERIMENTAL!!!
 inline constexpr bool limitPheromones = false;
+inline double maxPheromones = 20;
 
 
 // Setup display parameters:
