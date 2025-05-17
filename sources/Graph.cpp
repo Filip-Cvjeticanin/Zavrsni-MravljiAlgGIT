@@ -125,8 +125,8 @@ void Graph::drawGraph() {
         printf("              +----------+\n");
         printf("           1                   0       \n");
         printf("          /  \\                / \\      \n");
-        printf("         1   0               1   0       \n");
-        printf("         |   |               |   |       \n");
+        printf("         1    0              1   0       \n");
+        printf("         |    \\             /    |       \n");
         printf("%10f%10f%10f%10f\n", sib->nextOnePheromone, sib->nextZeroPheromone
             , curr->nextOnePheromone, curr->nextZeroPheromone);
         curr = curr->nextZero;

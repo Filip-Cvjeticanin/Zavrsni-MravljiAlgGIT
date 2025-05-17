@@ -13,6 +13,12 @@
 
 using namespace std;
 
+void displayAnt(int i, Ant* antPopulation []) {
+    cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness;
+    if (displayFormulaForEveryAnt) cout << "        " << antPopulation[i]->getFormula();
+    cout << endl;
+}
+
 int main() {
     cout << "MravljiAlgoritam" << endl;
     //initialConcentration = numberOfChosenAnts * 2;
@@ -112,34 +118,41 @@ int main() {
         cout << "\n\n\n            =====================================================================================\n";
         printf("            |                          ITERATION NUMBER: %4d                                   |\n", iter);
         cout << "            =====================================================================================\n";
-        cout << "\nPopulation after walking:\n";
+        if (displayPopulationAfterWalking) cout << "\nPopulation after walking:\n";
         for (int i = 0; i < numberOfAnts; i++) {
             antPopulation[i]->walk(&g);
             antPopulation[i]->evalFitness(TABLE);
-            cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+            if (displayPopulationAfterWalking) displayAnt(i, antPopulation);
         }
 
         sort(antPopulation, antPopulation + numberOfAnts, compareAntsByFitness);
 
-        cout << "\nPopulation after sorting:\n";
+        if (displayPopulationAfterSorting) cout << "\nPopulation after sorting:\n";
         for (int i = 0; i < numberOfAnts; i++) {
-            cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+            if (displayPopulationAfterSorting) displayAnt(i, antPopulation);
         }
 
-        cout << "\nBest from population:\n";
+        if (displayBestAnts) cout << "\nBest from population:\n";
         for (int i = 0;i < numberOfChosenAnts; i++) {
-            cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
-            antPopulation[i]->displayPath();
-            antPopulation[i]->displayTruthTable();
+            if (displayBestAnts) {
+                cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+                antPopulation[i]->displayPath();
+                antPopulation[i]->displayTruthTable();
+                cout << "   Ant's formula: " << antPopulation[i]->getFormula() << endl;
+            }
+
 
             antPopulation[i]->leavePheromones(&g);
         }
 
         g.evaporatePheromones();
 
-        g.printGraph();
-        g.drawGraph();
+        if (printGraphAfterIteration) g.printGraph();
+        if (drawGraphAfterIteration) g.drawGraph();
 
     }
+
+    if (displayBestSolution) cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+
     return 0;
 }

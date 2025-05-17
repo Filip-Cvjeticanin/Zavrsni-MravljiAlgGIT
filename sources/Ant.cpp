@@ -17,6 +17,10 @@
 
 using namespace std;
 
+// Generira masku takvu da je na nultoj poziciji u vektoru vrijednost najznačajnije varijable
+// Npr:   A   B   C                     0   1   2
+//        0   0   1       =>    mask = [0,  0,  1]
+
 void generateMask(int x, std::vector<bool> &mask) {
     mask.clear();
     for (int j = 0; j < numberOfVariables; j++) {
@@ -118,6 +122,37 @@ void Ant::displayTruthTable() {
         cout << "       " << i << ": " << truthTable[i] << endl;
     }
 }
+
+string Ant::getFormula() {
+    string formula = "";
+    bool newContent = false;
+    int pathCounter = 0;
+
+    for (int i = 0; i < pow(2,numberOfVariables); i++) {
+        vector<bool> mask;
+        generateMask(i, mask);
+
+        if (newContent) formula += " + ";
+        newContent = false;
+
+        for (int j = 0; j < numberOfVariables; j++) {
+            if (Path[pathCounter]) {
+                newContent = true;
+                if (!mask[j]) formula += "~";
+                formula += (j + 65);
+            }
+            pathCounter++;
+        }
+    }
+
+    // Makni " + " s kraja ako postoji.
+    if (formula.size() >= 3 && formula.substr(formula.size() - 3) == " + ") {
+        formula.erase(formula.size() - 3);
+    }
+
+    return formula;
+}
+
 
 double Ant::evalFitness(const std::vector <bool> &TABLE) {
     this->makeTruthTable();
