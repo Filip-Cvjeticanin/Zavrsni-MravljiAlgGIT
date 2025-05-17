@@ -12,3 +12,15 @@ Best solution: ~C~D + BC
 10001011100010111000101100000000
 Best fitness: 1.68085
 Best solution: ~A~D~E + ~AC~E + ~ACD + ~B~D~E + ~BCD
+
+// Model parameters:
+inline int numberOfIterations = 100; //Linear factor
+inline int numberOfVariables = 5; // max 26
+inline int numberOfAnts = 2000;
+inline int numberOfChosenAnts = 5;
+inline double initialConcentration = 1;
+inline double diminishRate = 0.2;
+inline std::string truthTable = "10001011100010111000101100000000"; // Must be 2 ** numberOfVariables
+inline constexpr bool steadyConvergence = false; // Uses a modification to the initialPheromones to adjust to the
+Best fitness: 1.72727
+Best solution: ~B~D~E + ~BCD + ~ACD + ~A~D~E
