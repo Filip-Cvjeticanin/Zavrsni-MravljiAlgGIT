@@ -5,13 +5,13 @@
 #define PARAMETERS_H
 
 // Model parameters:
-inline int numberOfIterations = 50; //Linear factor
-inline int numberOfVariables = 5; // max 26
-inline int numberOfAnts = 5000;
+inline int numberOfIterations = 100; //Linear factor
+inline int numberOfVariables = 6; // max 26
+inline int numberOfAnts = 10000;
 inline int numberOfChosenAnts = 5;
 inline double initialConcentration = 1;
 inline double diminishRate = 0.2;
-inline std::string truthTable = "10001011100010111000101100000000"; // Must be 2 ** numberOfVariables
+inline std::string truthTable = "1000000100000000100000000000000010000000000000001000000011111111"; // Must be 2 ** numberOfVariables
 inline constexpr bool steadyConvergence = false; // Uses a modification to the initialPheromones to adjust to the
                                                  // number of chosenAnts in an attempt to slow down convergence
                                                  // in wrong directions. Requires an increase in numberOfIterations.
@@ -26,9 +26,9 @@ inline constexpr bool excludedGraphPrint = false;
 
 // Ant algorithm display parameters:
 inline constexpr bool iterationLabel = true;
-inline constexpr bool displayPopulationAfterWalking = false;
+inline constexpr bool displayPopulationAfterWalking = true;
 inline constexpr bool displayPopulationAfterSorting = true;
-inline constexpr bool displayBestAnts = false;
+inline constexpr bool displayBestAnts = true;
 inline constexpr bool displayFormulaForEveryAnt = false;
 inline constexpr bool printGraphAfterIteration = false;
 inline constexpr bool drawGraphAfterIteration = true;

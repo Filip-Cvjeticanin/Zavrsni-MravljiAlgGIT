@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(Zavrsni_MravljiAlgoritamV2)
+project(Zavrsni_MravljiAlgGIT)
 
 
 
