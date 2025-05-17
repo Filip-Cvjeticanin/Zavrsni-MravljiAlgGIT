@@ -29,6 +29,7 @@ public:
     void displayTruthTable();
     double evalFitness(const std::vector <bool> &TABLE);
 
+    void leavePheromones(Graph* g);
 };
 
 #endif //ANT_H

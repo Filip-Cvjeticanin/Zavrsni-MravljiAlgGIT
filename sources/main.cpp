@@ -105,18 +105,38 @@ int main() {
     Ant* antPopulation[numberOfAnts];
     for (int i = 0; i < numberOfAnts; i++) {
         antPopulation[i] = new Ant(i);
-        antPopulation[i]->walk(&g);
-        antPopulation[i]->evalFitness(TABLE);
-        cout << "i:" << i << "    " << "fitness: " << antPopulation[i]->fitness << endl;
     }
-    sort(antPopulation, antPopulation + numberOfAnts, compareAntsByFitness);
-    for (int i = 0; i < numberOfAnts; i++) {
-        cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
-    }
-    for (int i = 0;i < numberOfChosenAnts; i++) {
-        cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
-        antPopulation[i]->displayPath();
-        antPopulation[i]->displayTruthTable();
+
+    for (int iter = 0; iter < numberOfVariables; iter++) {
+
+        cout << "\nPopulation after walking:\n";
+        for (int i = 0; i < numberOfAnts; i++) {
+            antPopulation[i]->walk(&g);
+            antPopulation[i]->evalFitness(TABLE);
+            cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+        }
+
+        sort(antPopulation, antPopulation + numberOfAnts, compareAntsByFitness);
+
+        cout << "\nPopulation after sorting:\n";
+        for (int i = 0; i < numberOfAnts; i++) {
+            cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+        }
+
+        cout << "\nBest from population:\n";
+        for (int i = 0;i < numberOfChosenAnts; i++) {
+            cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+            antPopulation[i]->displayPath();
+            antPopulation[i]->displayTruthTable();
+
+            antPopulation[i]->leavePheromones(&g);
+        }
+
+        g.evaporatePheromones();
+
+        g.printGraph();
+        g.drawGraph();
+
     }
     return 0;
 }

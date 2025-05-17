@@ -4,8 +4,9 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
+inline int numberOfIterations = 10;
 inline int numberOfVariables = 2;
-inline int numberOfAnts = 500;
+inline int numberOfAnts = 100;
 inline int numberOfChosenAnts = 5;
 inline double initialConcentration = 1;
 inline double diminishRate = 0.2;

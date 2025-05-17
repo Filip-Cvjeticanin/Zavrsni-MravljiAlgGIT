@@ -32,6 +32,7 @@ public:
     void setPheromone(int fromLayer, bool fromType, bool toType, double value);
     void printGraph();
     void drawGraph();
+    void evaporatePheromones();
     Graph();
 };
 #endif //GRAPH_H
