@@ -21,11 +21,12 @@ void displayAnt(int i, Ant* antPopulation []) {
 
 int main() {
     cout << "MravljiAlgoritam" << endl;
-    //initialConcentration = numberOfChosenAnts * 2;
+    if (steadyConvergence) initialConcentration = numberOfChosenAnts * 2;
+    numberOfChosenAnts = min(numberOfChosenAnts, numberOfAnts);
     Graph g = Graph();
     cout << g.numberOfLayers << endl;
 
-    g.printGraph();
+    if (initialGraphPrint) g.printGraph();
 
     // Unos tablice istinitosti i spremanje u memoriju.
     vector<bool> TABLE;
@@ -33,7 +34,8 @@ int main() {
         TABLE.push_back(0);
     }
     bool choice;
-    cout << "\n\nUpisi 0 za koristenje tablice istinitosti, 1 za unos formule: ";
+    cout << "\n\nUpisi 0 za koristenje tablice istinitosti, 1 za unos formule:\n";
+    cout << "> ";
     cin >> choice;
     if (choice == 0) {
         //cin >> truthTable; OVDJE SE MOŽE OMOGUĆITI UNOS TABLICE ISTINITOSTI
@@ -86,38 +88,24 @@ int main() {
         }
     }
 
-    cout << "\n\nGraf nakon isključivanja nepotrebnih konjunkata\n";
-    g.printGraph();
-    g.drawGraph();
+    if (excludedGraphPrint) {
+        cout << "\n\nGraf nakon iskljucivanja nepotrebnih konjunkata\n";
+        g.printGraph();
+        g.drawGraph();
+    }
 
-
-    // OVDJE POCINJEMO SA SIMULACIJOM MRAVA
-    // ...
-    // ...
-    // ...
-
-    /*cout << "\n\nTestiranje klase mrava:\n";
-    Ant *a2 = new Ant();
-    char c = 'n';
-    while (c == 'n') {
-        cout << "Mrav 2: " << endl;
-        a2->walk(&g);
-        a2->displayPath();
-        a2->makeTruthTable();
-        a2->displayTruthTable();
-        cout << a2->evalFitness(TABLE);
-        cin >> c;
-    }*/
-
+    // Pocetak simulacije mrava.
     Ant* antPopulation[numberOfAnts];
     for (int i = 0; i < numberOfAnts; i++) {
         antPopulation[i] = new Ant(i);
     }
 
-    for (int iter = 0; iter < numberOfIterations; iter++) {
-        cout << "\n\n\n            =====================================================================================\n";
-        printf("            |                          ITERATION NUMBER: %4d                                   |\n", iter);
-        cout << "            =====================================================================================\n";
+    for (int iter = 1; iter <= numberOfIterations; iter++) {
+        if (iterationLabel) {
+            cout << "\n\n\n            =====================================================================================\n";
+            printf("            |                          ITERATION NUMBER: %4d                                   |\n", iter);
+            cout << "            =====================================================================================\n";
+        }
         if (displayPopulationAfterWalking) cout << "\nPopulation after walking:\n";
         for (int i = 0; i < numberOfAnts; i++) {
             antPopulation[i]->walk(&g);
@@ -152,7 +140,9 @@ int main() {
 
     }
 
-    if (displayBestSolution) cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
-
+    if (displayBestSolution) {
+        cout << "\nBest fitness: " << antPopulation[0]->fitness << endl;
+        cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+    }
     return 0;
 }

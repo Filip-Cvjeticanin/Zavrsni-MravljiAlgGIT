@@ -1,0 +1,14 @@
+3
+10001011
+Best fitness: 1.66667
+Best solution: ~B~C + AB
+
+4
+1000101110001011
+Best fitness: 1.8
+Best solution: ~C~D + BC
+
+5
+10001011100010111000101100000000
+Best fitness: 1.68085
+Best solution: ~A~D~E + ~AC~E + ~ACD + ~B~D~E + ~BCD
