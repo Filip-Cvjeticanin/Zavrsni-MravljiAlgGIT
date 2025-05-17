@@ -137,6 +137,22 @@ void Graph::drawGraph() {
     printf("              +----------+\n");
 }
 
+void Graph::evaporatePheromones() {
+    Node* curr = startNode;
+    Node* sib;
+    curr->nextZeroPheromone = curr->nextZeroPheromone * (1 - diminishRate);
+    curr->nextOnePheromone = curr->nextOnePheromone * (1 - diminishRate);
+    curr = curr->nextZero;
+    for (int i = 1; i < numberOfLayers; i++) {
+        sib = curr->sibling;
+        curr->nextZeroPheromone = curr->nextZeroPheromone * (1 - diminishRate);
+        curr->nextOnePheromone = curr->nextOnePheromone * (1 - diminishRate);
+        sib->nextZeroPheromone = sib->nextZeroPheromone * (1 - diminishRate);
+        sib->nextOnePheromone = sib->nextOnePheromone * (1 - diminishRate);
+        curr = curr->nextZero;
+    }
+}
+
 
 
 

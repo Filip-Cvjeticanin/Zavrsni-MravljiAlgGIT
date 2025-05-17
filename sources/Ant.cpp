@@ -62,9 +62,9 @@ void Ant::walk(Graph* g) {
 }
 
 void Ant::displayPath() {
-    cout << "Ant's path: " << endl;
+    cout << "   Ant's path: " << endl;
     for (int i = 0; i < pow(2,numberOfVariables); i++) {
-        printf("%4d: ", i);
+        printf("    %4d: ", i);
         for (int j = 0; j < numberOfVariables; j++) {
             cout << Path[j + numberOfVariables * i] << " -> ";
         }
@@ -113,9 +113,9 @@ void Ant::makeTruthTable() {
 }
 
 void Ant::displayTruthTable() {
-    cout << "Ant's truth table:" << endl;
+    cout << "   Ant's truth table:" << endl;
     for (int i = 0; i < truthTable.size(); i++) {
-        cout << "   " << i << ": " << truthTable[i] << endl;
+        cout << "       " << i << ": " << truthTable[i] << endl;
     }
 }
 
@@ -137,4 +137,18 @@ double Ant::evalFitness(const std::vector <bool> &TABLE) {
     if (tableMatch == pow(2,numberOfVariables)) sol += 1;
     fitness = sol;
     return sol;
+}
+
+void Ant::leavePheromones(Graph *g) {
+    Node* curr = g->startNode;
+    for (int i = 0; i < g->numberOfLayers; i++) {
+        if (Path[i] == 0) {
+            curr->nextZeroPheromone += fitness;
+            curr = curr->nextZero;
+        }
+        else if(Path[i] == 1){
+            curr->nextOnePheromone += fitness;
+            curr = curr->nextOne;
+        }
+    }
 }

@@ -15,6 +15,7 @@ using namespace std;
 
 int main() {
     cout << "MravljiAlgoritam" << endl;
+    //initialConcentration = numberOfChosenAnts * 2;
     Graph g = Graph();
     cout << g.numberOfLayers << endl;
 
@@ -107,8 +108,10 @@ int main() {
         antPopulation[i] = new Ant(i);
     }
 
-    for (int iter = 0; iter < numberOfVariables; iter++) {
-
+    for (int iter = 0; iter < numberOfIterations; iter++) {
+        cout << "\n\n\n            =====================================================================================\n";
+        printf("            |                          ITERATION NUMBER: %4d                                   |\n", iter);
+        cout << "            =====================================================================================\n";
         cout << "\nPopulation after walking:\n";
         for (int i = 0; i < numberOfAnts; i++) {
             antPopulation[i]->walk(&g);
