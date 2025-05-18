@@ -7,26 +7,28 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
+#include <iomanip>
 
 #include "../headers/parameters.h"
 #include "../headers/Graph.h"
 #include "../headers/FormulaParsing.h"
 #include "../headers/Ant.h"
+#include "../headers/outputControll.h"
 
 using namespace std;
 
 void displayAnt(int i, Ant* antPopulation []) {
-    cout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness;
-    if (displayFormulaForEveryAnt) cout << "        " << antPopulation[i]->getFormula();
-    cout << endl;
+    dout << "i:" << i << "    " << "id: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness;
+    if (displayFormulaForEveryAnt) dout << "        " << antPopulation[i]->getFormula();
+    dout << endl;
 }
 
 int main() {
-    cout << "MravljiAlgoritam" << endl;
+    dout << "MravljiAlgoritam" << endl;
     if (steadyConvergence) initialConcentration = numberOfChosenAnts * 2;
     numberOfChosenAnts = min(numberOfChosenAnts, numberOfAnts);
     Graph g = Graph();
-    cout << g.numberOfLayers << endl;
+    dout << g.numberOfLayers << endl;
 
     if (initialGraphPrint) g.printGraph();
 
@@ -37,8 +39,8 @@ int main() {
         TABLE.push_back(0);
     }
     bool choice;
-    cout << "\n\nUpisi 0 za koristenje tablice istinitosti, 1 za unos formule:\n";
-    cout << "> ";
+    dout << "\n\nUpisi 0 za koristenje tablice istinitosti, 1 za unos formule:\n";
+    dout << "> ";
     cin >> choice;
     if (choice == 0) {
         //cin >> truthTable; OVDJE SE MOŽE OMOGUĆITI UNOS TABLICE ISTINITOSTI
@@ -62,19 +64,19 @@ int main() {
             findIndexesToActivate(konjunkti[i], switchList, numberOfVariables);
 
             for (int j = 0; j < switchList.size(); j++) {
-                cout << switchList[j] << " ";
+                dout << switchList[j] << " ";
                 TABLE[switchList[j]] = 1;
             }
-            cout << endl;
+            dout << endl;
         }
 
         inlineTruthTable = "";
-        cout << "TRUTH TABLE:\n";
+        dout << "TRUTH TABLE:\n";
         for (int i = 0; i < TABLE.size(); i++) {
-            cout << i << ": "<< TABLE[i] << endl;
+            dout << i << ": "<< TABLE[i] << endl;
             inlineTruthTable += TABLE[i] + 48;
         }
-        cout << "inlineTruthTable: " << inlineTruthTable << endl;
+        dout << "inlineTruthTable: " << inlineTruthTable << endl;
     }
 
     for (int i = 0; i < TABLE.size(); i++) {
@@ -85,7 +87,7 @@ int main() {
     g.deactivateUnnecessary(TABLE);
 
     if (excludedGraphPrint) {
-        cout << "\n\nGraf nakon iskljucivanja nepotrebnih konjunkata\n";
+        dout << "\n\nGraf nakon iskljucivanja nepotrebnih konjunkata\n";
         g.printGraph();
         g.drawGraph();
     }
@@ -110,12 +112,12 @@ int main() {
     for (int iter = 1; iter <= numberOfIterations; iter++) {
 
         if (iterationLabel) {
-            cout << "\n\n\n            =====================================================================================\n";
-            printf("            |                          ITERATION NUMBER: %4d                                   |\n", iter);
-            cout << "            =====================================================================================\n";
+            dout << "\n\n\n            =====================================================================================\n";
+            dout << "            |                          ITERATION NUMBER:  " << std::setw(4) << iter << "                                   |" << std::endl;
+            dout << "            =====================================================================================\n";
         }
 
-        if (displayPopulationAfterWalking) cout << "\nPopulation after walking:\n";
+        if (displayPopulationAfterWalking) dout << "\nPopulation after walking:\n";
         for (int i = 0; i < numberOfAnts; i++) {
             if (i>numberOfChosenAnts - 1) antPopulation[i]->walk(&g);
             antPopulation[i]->evalFitness(TABLE);
@@ -124,19 +126,19 @@ int main() {
 
         sort(antPopulation, antPopulation + numberOfAnts, compareAntsByFitness);
 
-        if (displayPopulationAfterSorting) cout << "\nPopulation after sorting:\n";
+        if (displayPopulationAfterSorting) dout << "\nPopulation after sorting:\n";
         for (int i = 0; i < numberOfAnts; i++) {
             if (displayPopulationAfterSorting) displayAnt(i, antPopulation);
         }
 
-        if (displayBestAnts) cout << "\nBest from population:\n";
+        if (displayBestAnts) dout << "\nBest from population:\n";
         for (int i = 0;i < numberOfChosenAnts; i++) {
             if (displayBestAnts) {
-                cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
+                dout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
                 if (displayBestAntsPath) antPopulation[i]->displayPath();
                 if (displayBestAntsTruthTable) antPopulation[i]->displayTruthTable();
-                cout << "   Ant's formula: " << antPopulation[i]->getFormula() << endl;
-                //cout << "Inline path:" << antPopulation[0]->inlinePath() << endl;
+                dout << "   Ant's formula: " << antPopulation[i]->getFormula() << endl;
+                //dout << "Inline path:" << antPopulation[0]->inlinePath() << endl;
             }
 
 
@@ -153,7 +155,7 @@ int main() {
             bestPath = antPopulation[0]->inlinePath();
             g.resetGraph();
             g.deactivateUnnecessary(TABLE);
-            cout << "\n\n              *************** RESET ***************\n\n";
+            dout << "\n\n              *************** RESET ***************\n\n";
 
             for (int i = 0; i < numberOfChosenAnts; i++) {
                 antPopulation[i]->loadPath(bestPath);
@@ -165,35 +167,21 @@ int main() {
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end - start;
 
-    std::cout << "\n\nSimulation time: " << elapsed.count() << " ms\n";
+    dout << "\n\nSimulation time: " << elapsed.count() << " ms\n";
 
     if (displayBestSolution) {
-        cout << "\nBest fitness: " << antPopulation[0]->fitness << endl;
-        cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
-        cout << "Inline table:" << inlineTruthTable << endl;
-        cout << "Inline path:" << antPopulation[0]->inlinePath() << endl;
+        dout << "\nBest fitness: " << antPopulation[0]->fitness << endl;
+        dout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+        dout << "Inline table:" << inlineTruthTable << endl;
+        dout << "Inline path:" << antPopulation[0]->inlinePath() << endl;
     }
 
-    // Log solution to file
-    string filenameTemplate = "./L-solutionLogs/";
-    filenameTemplate += "N" + to_string(numberOfVariables) + "M" + to_string(numberOfAnts) + "I" +
-                              to_string(numberOfIterations);
-    int counter = 1;
-    while (true) {
-        string filename = filenameTemplate + "-" + to_string(counter) + ".txt";
-        counter++;
-        ifstream infile(filename);
-        if (infile.good()) continue;
-
-        ofstream outfile(filename);
-        outfile << "Simulation time: " << elapsed.count() << " ms\n";
-        outfile << "\nBest fitness: " << antPopulation[0]->fitness << endl;
-        outfile << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
-        outfile << "Inline table:" << inlineTruthTable << endl;
-        outfile << "Inline path:" << antPopulation[0]->inlinePath() << endl;
-        break;
-
-    }
-
+    ofstream outFile;
+    outFile.open("./L-solutionLogs/" + dout.name);
+    outFile << "\n\nSimulation time: " << elapsed.count() << " ms\n";
+    outFile << "\nBest fitness: " << antPopulation[0]->fitness << endl;
+    outFile << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+    outFile << "Inline table:" << inlineTruthTable << endl;
+    outFile << "Inline path:" << antPopulation[0]->inlinePath() << endl;
     return 0;
 }
