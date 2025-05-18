@@ -1,5 +1,0 @@
-Simulation time: 145129 ms
-
-Best fitness: 0.685714
-
-Best solution: CD + ~E~F + AC

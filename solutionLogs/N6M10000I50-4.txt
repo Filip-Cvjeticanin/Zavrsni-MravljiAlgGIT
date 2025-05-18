@@ -1,5 +1,0 @@
-Simulation time: 150417 ms
-
-Best fitness: 1.34043
-
-Best solution: ~C~D~E~F + ~A~CDEF + ~A~BCE~F + ~ACD~E + CD~EF + ~ACDE~F + B~E~F + ~AB~C~DEF + B~E~F + ~A~CDEF + B~E~F + BCD~F + BCD~E + ~ACD~F + A~C~E~F + A~B~C~F + A~C~E~F + A~B~C~F + AC~EF + AC~DF + AC~EF + B~E~F + AB~D~E + B~E~F + B~E~F + ABC + ABC + ABC~D + ABC + BCD~E + ABC + ABCD

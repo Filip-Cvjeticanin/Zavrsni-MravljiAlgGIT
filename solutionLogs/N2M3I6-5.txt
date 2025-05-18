@@ -1,6 +1,0 @@
-Simulation time: 39.3631 ms
-
-Best fitness: 1.8
-
-Best solution: A
-0011
