@@ -5,6 +5,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <vector>
+
 
 class Node {
 public:
@@ -30,8 +32,13 @@ public:
 
     int numberOfLayers;
     void setPheromone(int fromLayer, bool fromType, bool toType, double value);
+
     void printGraph();
     void drawGraph();
+
+    void resetGraph();
+    void deactivateUnnecessary(std::vector<bool> &table);
+
     void evaporatePheromones();
     Graph();
 };

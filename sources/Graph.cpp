@@ -137,6 +137,37 @@ void Graph::drawGraph() {
     printf("              +----------+\n");
 }
 
+void Graph::resetGraph() {
+    Node* curr = startNode;
+    for (int i = 0; i < numberOfLayers; i++) {
+        curr->nextZeroPheromone = 1;
+        curr->nextOnePheromone = 1;
+
+        curr = curr->sibling;
+
+        curr->nextZeroPheromone = 1;
+        curr->nextOnePheromone = 1;
+
+        curr = curr->nextZero;
+    }
+}
+
+void Graph::deactivateUnnecessary(std::vector<bool>& table) {
+    // Deaktiviranje nepotrebnih konjunkta =>
+    //       - postavljanje feromonskih tragova za uključivanje određenih
+    //         elementa na 0
+    int counter1 = 0, counter2 = 0;
+    for (counter1 = 0; counter1 < pow(2, numberOfVariables); counter1++) {
+        for (int i = 0; i < numberOfVariables; i++) {
+            if (table[counter1] == 0) {
+                setPheromone(counter2, 0, 1, 0);
+                setPheromone(counter2, 1, 1, 0);
+            }
+            counter2++;
+        }
+    }
+}
+
 void Graph::evaporatePheromones() {
     Node* curr = startNode;
     Node* sib;
