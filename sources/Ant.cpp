@@ -61,7 +61,7 @@ void Ant::walk(Graph* g) {
         if (i % numberOfVariables == 0) {
             skipGroup = false;
             double probability = -1;
-            if (fitness >= 1) probability = 0.10;
+            if (fitness >= 1) probability = excludeProbability;
             double randomNumber2 = dist(gen);
             if (randomNumber2 < probability) skipGroup = true;
         }
@@ -165,6 +165,15 @@ string Ant::getFormula() {
     return formula;
 }
 
+string Ant::inlinePath() {
+    string sol;
+    for (int i = 0; i < numberOfVariables * pow(2, numberOfVariables); i++) {
+        if (Path[i]) sol += '1';
+        else sol += '0';
+    }
+    return sol;
+}
+
 void Ant::loadPathFromTable(std::vector<bool> &table) {
     int pathCounter = 0;
     for (int i = 0; i < pow(2,numberOfVariables); i++) {
@@ -178,6 +187,14 @@ void Ant::loadPathFromTable(std::vector<bool> &table) {
             Path[pathCounter] = 1;
             pathCounter++;
         }
+    }
+    makeTruthTable();
+}
+
+void Ant::loadPath(std::string inlinePath) {
+    for (int i = 0; i < inlinePath.length(); i++) {
+        if (inlinePath[i] == '1') Path[i] = 1;
+        else Path[i] = 0;
     }
     makeTruthTable();
 }

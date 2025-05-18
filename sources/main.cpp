@@ -136,6 +136,7 @@ int main() {
                 if (displayBestAntsPath) antPopulation[i]->displayPath();
                 if (displayBestAntsTruthTable) antPopulation[i]->displayTruthTable();
                 cout << "   Ant's formula: " << antPopulation[i]->getFormula() << endl;
+                cout << "Inline path:" << antPopulation[0]->inlinePath() << endl;
             }
 
 
@@ -157,6 +158,7 @@ int main() {
     if (displayBestSolution) {
         cout << "\nBest fitness: " << antPopulation[0]->fitness << endl;
         cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+        cout << "Inline path:" << antPopulation[0]->inlinePath() << endl;
     }
 
     // Log solution to file
@@ -174,7 +176,7 @@ int main() {
         outfile << "Simulation time: " << elapsed.count() << " ms\n";
         outfile << "\nBest fitness: " << antPopulation[0]->fitness << endl;
         outfile << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
-        outfile << truthTable << endl;
+        outfile << "Inline path:" << antPopulation[0]->inlinePath() << endl;
         break;
 
     }
