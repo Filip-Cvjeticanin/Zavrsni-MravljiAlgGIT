@@ -26,11 +26,14 @@ kraj ponavljaj
 
 ===================================================
 Zadatci:
-    1) Napravi klasu za generiranje i handlanje stabla
-    2) Napravi klasu za mrava
-    3) Napiši inačicu pseudokoda
+    CHECK 1) Napravi klasu za generiranje i handlanje stabla
+    CHECK 2) Napravi klasu za mrava
+    CHECK 3) Napiši inačicu pseudokoda
 
-    RANDOM ISKLJUCIVANJE CIJELIH KONJUNKATA za pojedinog mrava
-    isprobati ponovno rad sa limi pheromones
+    CHECK dodati elitizam
+    CHECK inicijalo učitavanje ispravnih mrava
+    CHECK RANDOM ISKLJUCIVANJE CIJELIH KONJUNKATA za pojedinog mrava
+    CHECK isprobati ponovno rad sa limit pheromones
+
     nparviti učitavanje parametara kroz .config file
     napraviti modifikaciju gdje graf učitaqva samo potrebne nodove, a ne sve (to bi očekivalo i dodavanje id-a u node da bi mogo pratiti koji je koji literal)
