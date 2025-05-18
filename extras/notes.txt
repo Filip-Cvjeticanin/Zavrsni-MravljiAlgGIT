@@ -19,3 +19,5 @@
 4) Maksimalna vrijednost najboljeg fitnessa ovisi u nekom dijelu o obliku same funkcije
    za neke istinitosne tablice jednostavno nije moguće premašiti određeni fitness jer on ovisi
    o broju literala u formuli.
+5) Dodatak mogućnosti isključivanaj cijelog disjunkta je dovelo do fenomenalnih rezultata. S puno manje mrava i iteracija
+   algoritam gađa puno bolja rješenja.

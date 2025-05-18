@@ -30,4 +30,7 @@ Zadatci:
     2) Napravi klasu za mrava
     3) Napiši inačicu pseudokoda
 
-    super, a sad, kako da se rijesim duplica?!?!?
+    RANDOM ISKLJUCIVANJE CIJELIH KONJUNKATA za pojedinog mrava
+    isprobati ponovno rad sa limi pheromones
+    nparviti učitavanje parametara kroz .config file
+    napraviti modifikaciju gdje graf učitaqva samo potrebne nodove, a ne sve (to bi očekivalo i dodavanje id-a u node da bi mogo pratiti koji je koji literal)

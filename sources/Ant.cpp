@@ -51,9 +51,20 @@ void Ant::walk(Graph* g) {
 
     Node* curr = g->startNode;
 
+    bool skipGroup = false;
+
     for (int i = 0; i < g->numberOfLayers; i++) {
         double probabilityZero = curr->nextZeroPheromone / (curr->nextZeroPheromone + curr->nextOnePheromone);
         double randomNumber = dist(gen);
+
+        // On start of decide if it's going to be excluded with probabilit p;
+        if (i % numberOfVariables == 0) {
+            skipGroup = false;
+            double probability = -1;
+            if (fitness >= 1) probability = 0.10;
+            double randomNumber2 = dist(gen);
+            if (randomNumber2 < probability) skipGroup = true;
+        }
 
         if (randomNumber < probabilityZero) {
             Path[i] = 0;
@@ -169,23 +180,26 @@ double Ant::evalFitness(const std::vector <bool> &TABLE) {
         if (TABLE[i] == truthTable[i]) tableMatch++;
     }
 
-    double sol = (double) tableMatch / pathSum;
-    if (tableMatch == pow(2,numberOfVariables)) sol += 1;
+    double sol;
+    if (tableMatch == pow(2,numberOfVariables)) sol = (double) tableMatch / pathSum + 1;
+    else sol = tableMatch / pow(2,numberOfVariables);
     fitness = sol;
     return sol;
 }
 
 void Ant::leavePheromones(Graph *g) {
     Node* curr = g->startNode;
+    double leaveAmount = 0.1;
+    if (fitness >= 1) leaveAmount = fitness;
     for (int i = 0; i < g->numberOfLayers; i++) {
         if (Path[i] == 0) {
-            curr->nextZeroPheromone += fitness;
-            if (limitPheromones) curr->nextZeroPheromone = min(curr->nextZeroPheromone, maxPheromones);
+            curr->nextZeroPheromone += leaveAmount;
+            if (limitPheromones) curr->nextZeroPheromone = min(curr->nextZeroPheromone + leaveAmount, maxPheromones);
             curr = curr->nextZero;
         }
         else if(Path[i] == 1){
-            curr->nextOnePheromone += fitness;
-            if (limitPheromones) curr->nextOnePheromone = min(curr->nextOnePheromone, maxPheromones);
+            curr->nextOnePheromone += leaveAmount;
+            if (limitPheromones) curr->nextOnePheromone = min(curr->nextOnePheromone + leaveAmount, maxPheromones);
             curr = curr->nextOne;
         }
     }

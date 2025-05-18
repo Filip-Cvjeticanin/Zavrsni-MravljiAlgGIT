@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <chrono>
+#include <fstream>
 
 #include "../headers/parameters.h"
 #include "../headers/Graph.h"
@@ -109,7 +110,7 @@ int main() {
             cout << "            =====================================================================================\n";
         }
         if (displayPopulationAfterWalking) cout << "\nPopulation after walking:\n";
-        for (int i = 0; i < numberOfAnts; i++) {
+        for (int i = max(numberOfChosenAnts - 1, 1); i < numberOfAnts; i++) {
             antPopulation[i]->walk(&g);
             antPopulation[i]->evalFitness(TABLE);
             if (displayPopulationAfterWalking) displayAnt(i, antPopulation);
@@ -126,8 +127,8 @@ int main() {
         for (int i = 0;i < numberOfChosenAnts; i++) {
             if (displayBestAnts) {
                 cout << "\nid: " << antPopulation[i]->id << "    " << "fitness: " << antPopulation[i]->fitness << endl;
-                antPopulation[i]->displayPath();
-                antPopulation[i]->displayTruthTable();
+                if (displayBestAntsPath) antPopulation[i]->displayPath();
+                if (displayBestAntsTruthTable) antPopulation[i]->displayTruthTable();
                 cout << "   Ant's formula: " << antPopulation[i]->getFormula() << endl;
             }
 
@@ -145,11 +146,31 @@ int main() {
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end - start;
 
-    std::cout << "Simulation time: " << elapsed.count() << " ms\n";
+    std::cout << "\n\nSimulation time: " << elapsed.count() << " ms\n";
 
     if (displayBestSolution) {
         cout << "\nBest fitness: " << antPopulation[0]->fitness << endl;
         cout << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+    }
+
+    // Log solution to file
+    string filenameTemplate = "../solutionLogs/";
+    filenameTemplate += "N" + to_string(numberOfVariables) + "M" + to_string(numberOfAnts) + "I" +
+                              to_string(numberOfIterations);
+    int counter = 1;
+    while (true) {
+        string filename = filenameTemplate + "-" + to_string(counter) + ".txt";
+        counter++;
+        ifstream infile(filename);
+        if (infile.good()) continue;
+
+        ofstream outfile(filename);
+        outfile << "Simulation time: " << elapsed.count() << " ms\n";
+        outfile << "\nBest fitness: " << antPopulation[0]->fitness << endl;
+        outfile << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
+        outfile << truthTable << endl;
+        break;
+
     }
 
     return 0;

@@ -1,0 +1,5 @@
+Simulation time: 4670.11 ms
+
+Best fitness: 1.83117
+
+Best solution: ~A~B~CDEF + ~C~D~E~F + ABC
