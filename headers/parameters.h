@@ -5,12 +5,12 @@
 #define PARAMETERS_H
 
 // Model parameters:
-inline int numberOfIterations = 500; //Linear factor
+inline int numberOfIterations = 40; //Linear factor
 inline int resetAfter = 30;
 inline int numberOfVariables = 6; // max 26
-inline int numberOfAnts = 3500;
+inline int numberOfAnts = 1000;
 inline int numberOfChosenAnts = 2;
-inline double initialConcentration = 2;
+inline double initialConcentration = 2.5;
 inline double diminishRate = 0.2;
 inline std::string truthTable = "1000000100101110100110011000111010101010010101001100100011111111"; // Must be 2 ** numberOfVariables
 inline constexpr bool steadyConvergence = false; // Uses a modification to the initialPheromones to adjust to the

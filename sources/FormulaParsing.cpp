@@ -8,12 +8,13 @@
 #include <vector>
 #include <string>
 #include "../headers/FormulaParsing.h"
+#include "../headers/outputControll.h"
 
 using namespace std;
 
 void split(vector<string> & vekt, string formula) {
     formula += "+";
-    cout << formula << endl;
+    dout << formula << endl;
     int i = 0;
     string tmp = "";
     while (i < formula.length()) {
@@ -70,8 +71,8 @@ void findIndexesToActivate(string member, vector<int> & switchList, int nVar) {
         }
     }
 
-    cout << uppercase << endl;
-    cout << "==================" << endl;
+    dout << uppercase << endl;
+    dout << "==================" << endl;
 
     int value = 1;
     for (int i = 0; i < member.length(); i++) {
@@ -85,14 +86,14 @@ void findIndexesToActivate(string member, vector<int> & switchList, int nVar) {
     int notSet = 0;
     for (int i = nVar - 1; i >= 0; i--) {
         if (numberRepresentation[i] == -1) notSet++;
-        cout << numberRepresentation[i] << " ";
+        dout << numberRepresentation[i] << " ";
     }
-    cout << "\nNot set: " << notSet << endl;
+    dout << "\nNot set: " << notSet << endl;
 
 
     for (int mask = 0; mask < pow(2, notSet); mask++) {
-        cout << "mask: " << mask << " TR: ";
-        cout << findTableIndex(mask, numberRepresentation, nVar) << endl;
+        dout << "mask: " << mask << " TR: ";
+        dout << findTableIndex(mask, numberRepresentation, nVar) << endl;
         switchList.push_back(findTableIndex(mask, numberRepresentation, nVar));
     }
 

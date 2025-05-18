@@ -10,7 +10,7 @@
 
 #include "../headers/parameters.h"
 #include "../headers/Ant.h"
-
+#include "../headers/outputControll.h"
 #include <filesystem>
 
 #include "../headers/Graph.h"
@@ -78,13 +78,13 @@ void Ant::walk(Graph* g) {
 }
 
 void Ant::displayPath() {
-    cout << "   Ant's path: " << endl;
+    dout << "   Ant's path: " << endl;
     for (int i = 0; i < pow(2,numberOfVariables); i++) {
         printf("    %4d: ", i);
         for (int j = 0; j < numberOfVariables; j++) {
-            cout << Path[j + numberOfVariables * i] << " -> ";
+            dout << Path[j + numberOfVariables * i] << " -> ";
         }
-        cout << endl;
+        dout << endl;
     }
 }
 
@@ -106,9 +106,9 @@ void Ant::makeTruthTable() {
             bool result;
             bool checked = false;
             bool allGood = true;
-            //cout << " i j " << i << " " << j << "==============" <<endl;
+            //dout << " i j " << i << " " << j << "==============" <<endl;
             for (int k = 0; k < numberOfVariables; k++) {
-                //cout << pathCounter<< ": "<< Path[pathCounter] << endl;
+                //dout << pathCounter<< ": "<< Path[pathCounter] << endl;
                 if (Path[pathCounter] && values[k] == notTemp[k]) {
                     checked = true;
                 }
@@ -119,9 +119,9 @@ void Ant::makeTruthTable() {
 
             }
             result = checked && allGood;
-            //cout << "checked " << checked << endl;
-            //cout << "allGood " << allGood << endl;
-            //cout << "result " << result << endl;
+            //dout << "checked " << checked << endl;
+            //dout << "allGood " << allGood << endl;
+            //dout << "result " << result << endl;
 
             truthTable[i] = truthTable[i] || result;
         }
@@ -129,9 +129,9 @@ void Ant::makeTruthTable() {
 }
 
 void Ant::displayTruthTable() {
-    cout << "   Ant's truth table:" << endl;
+    dout << "   Ant's truth table:" << endl;
     for (int i = 0; i < truthTable.size(); i++) {
-        cout << "       " << i << ": " << truthTable[i] << endl;
+        dout << "       " << i << ": " << truthTable[i] << endl;
     }
 }
 

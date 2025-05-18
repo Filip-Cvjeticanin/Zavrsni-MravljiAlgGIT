@@ -4,6 +4,8 @@
 #include <iostream>
 #include "../headers/Graph.h"
 #include "../headers/parameters.h"
+#include "../headers/outputControll.h"
+#include <iomanip>
 #include <cmath>
 using namespace std;
 
@@ -89,7 +91,7 @@ void Graph::setPheromone(int fromLayer, bool fromType, bool toType, double value
     Node* curr = startNode;
     for (int i = 0; i < fromLayer; i++) {
         if (curr == nullptr) {
-            cout << "ERROR in setPheromone() ===============================================" << endl;
+            dout << "ERROR in setPheromone() ===============================================" << endl;
             return;
         }
         curr = curr->nextZero;
@@ -104,13 +106,13 @@ void Graph::printGraph() {
     Node* curr0 = startNode;
     Node* curr1 = startNode;
 
-    cout << "START LAYER:" << endl;
+    dout << "START LAYER:" << endl;
     for (int i = 0; i < numberOfLayers + 1; i++) {
-        cout << "Layer " << i  << ": " << endl;
-        cout << "   [0-0]:  " << curr0->nextZeroPheromone << ", ";
-        cout << "[0-1]:  " << curr0->nextOnePheromone << ", ";
-        cout << "[1-0]:  " << curr1->nextZeroPheromone << ", ";
-        cout << "[1-1]:  " << curr1->nextOnePheromone << endl;
+        dout << "Layer " << i  << ": " << endl;
+        dout << "   [0-0]:  " << curr0->nextZeroPheromone << ", ";
+        dout << "[0-1]:  " << curr0->nextOnePheromone << ", ";
+        dout << "[1-0]:  " << curr1->nextZeroPheromone << ", ";
+        dout << "[1-1]:  " << curr1->nextOnePheromone << endl;
         curr0 = curr0->nextZero;
         curr1 = curr1->nextOne;
     }
@@ -120,21 +122,26 @@ void Graph::drawGraph() {
     Node* curr = startNode;
     for (int i = 0; i < numberOfLayers; i++) {
         Node* sib = curr->sibling;
-        printf("              +----------+\n");
-        printf("              |LAYER%5d|              \n", curr->id);
-        printf("              +----------+\n");
-        printf("           1                   0       \n");
-        printf("          /  \\                / \\      \n");
-        printf("         1    0              1   0       \n");
-        printf("         |    \\             /    |       \n");
-        printf("%10f%10f%10f%10f\n", sib->nextOnePheromone, sib->nextZeroPheromone
-            , curr->nextOnePheromone, curr->nextZeroPheromone);
+
+        dout << "              +----------+\n";
+        dout << "              |LAYER" << std::setw(5) << curr->id << "|\n";
+        dout << "              +----------+\n";
+        dout << "           1                   0       \n";
+        dout << "          /  \\                / \\      \n";
+        dout << "         1    0              1   0       \n";
+        dout << "         |    \\             /    |       \n";
+
+        dout << std::fixed << std::setw(10) << std::setprecision(6)
+             << sib->nextOnePheromone << std::setw(10) << sib->nextZeroPheromone
+             << std::setw(10) << curr->nextOnePheromone << std::setw(10) << curr->nextZeroPheromone
+             << "\n";
+
         curr = curr->nextZero;
     }
 
-    printf("              +----------+\n");
-    printf("              |LAYER%5d|              \n", curr->id);
-    printf("              +----------+\n");
+    dout << "              +----------+\n";
+    dout << "              |LAYER" << std::setw(5) << curr->id << "|\n";
+    dout << "              +----------+\n";
 }
 
 void Graph::resetGraph() {
@@ -183,9 +190,4 @@ void Graph::evaporatePheromones() {
         curr = curr->nextZero;
     }
 }
-
-
-
-
-
 
