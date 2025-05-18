@@ -165,6 +165,23 @@ string Ant::getFormula() {
     return formula;
 }
 
+void Ant::loadPathFromTable(std::vector<bool> &table) {
+    int pathCounter = 0;
+    for (int i = 0; i < pow(2,numberOfVariables); i++) {
+        if (table[i] == 0) {
+            pathCounter += numberOfVariables;
+            continue;
+        }
+        vector<bool> mask;
+        generateMask(i, mask);
+        for (int j = 0; j < numberOfVariables; j++) {
+            Path[pathCounter] = 1;
+            pathCounter++;
+        }
+    }
+    makeTruthTable();
+}
+
 
 double Ant::evalFitness(const std::vector <bool> &TABLE) {
     this->makeTruthTable();

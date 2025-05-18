@@ -7,7 +7,7 @@
 // Model parameters:
 inline int numberOfIterations = 100; //Linear factor
 inline int numberOfVariables = 6; // max 26
-inline int numberOfAnts = 20000;
+inline int numberOfAnts = 10000;
 inline int numberOfChosenAnts = 5;
 inline double initialConcentration = 1;
 inline double diminishRate = 0.2;
@@ -16,9 +16,9 @@ inline constexpr bool steadyConvergence = false; // Uses a modification to the i
                                                  // number of chosenAnts in an attempt to slow down convergence
                                                  // in wrong directions. Requires an increase in numberOfIterations.
                                                  // EXPERIMENTAL!!!
-inline constexpr bool limitPheromones = true;
+inline constexpr bool limitPheromones = false;
 inline double maxPheromones = 10;
-inline double excludeProbability = 0.1;
+inline double excludeProbability = 0.3;
 
 // Setup display parameters:
 inline constexpr bool initialGraphPrint = false;

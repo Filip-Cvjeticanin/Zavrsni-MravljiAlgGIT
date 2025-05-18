@@ -28,6 +28,7 @@ public:
     void makeTruthTable();
     void displayTruthTable();
     std::string getFormula();
+    void loadPathFromTable(std::vector<bool> &table);
 
     double evalFitness(const std::vector <bool> &TABLE);
     void leavePheromones(Graph* g);

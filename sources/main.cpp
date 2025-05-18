@@ -103,6 +103,12 @@ int main() {
         antPopulation[i] = new Ant(i);
     }
 
+    for (int i = 0; i < numberOfChosenAnts; i++) {
+        antPopulation[i]->loadPathFromTable(TABLE);
+        antPopulation[i]->displayPath();
+        cout << antPopulation[i]->getFormula() << endl;
+    }
+
     for (int iter = 1; iter <= numberOfIterations; iter++) {
         if (iterationLabel) {
             cout << "\n\n\n            =====================================================================================\n";
@@ -110,8 +116,8 @@ int main() {
             cout << "            =====================================================================================\n";
         }
         if (displayPopulationAfterWalking) cout << "\nPopulation after walking:\n";
-        for (int i = max(numberOfChosenAnts - 1, 1); i < numberOfAnts; i++) {
-            antPopulation[i]->walk(&g);
+        for (int i = 0; i < numberOfAnts; i++) {
+            if (i>numberOfChosenAnts - 1) antPopulation[i]->walk(&g);
             antPopulation[i]->evalFitness(TABLE);
             if (displayPopulationAfterWalking) displayAnt(i, antPopulation);
         }
