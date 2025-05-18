@@ -37,6 +37,6 @@ Zadatci:
     CHECK napraviti reset grafa nakon određenog broja iteracija
 
     dodati destruktore za svu memoriju
-    napraviti custom output buffer
+    CHECK napraviti custom output buffer
     nparviti učitavanje parametara kroz .config file
     napraviti modifikaciju gdje graf učitaqva samo potrebne nodove, a ne sve (to bi očekivalo i dodavanje id-a u node da bi mogo pratiti koji je koji literal)
