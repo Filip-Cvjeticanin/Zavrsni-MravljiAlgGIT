@@ -140,13 +140,13 @@ void Graph::drawGraph() {
 void Graph::resetGraph() {
     Node* curr = startNode;
     for (int i = 0; i < numberOfLayers; i++) {
-        curr->nextZeroPheromone = 1;
-        curr->nextOnePheromone = 1;
+        curr->nextZeroPheromone = initialConcentration;
+        curr->nextOnePheromone = initialConcentration;
 
         curr = curr->sibling;
 
-        curr->nextZeroPheromone = 1;
-        curr->nextOnePheromone = 1;
+        curr->nextZeroPheromone = initialConcentration;
+        curr->nextOnePheromone = initialConcentration;
 
         curr = curr->nextZero;
     }

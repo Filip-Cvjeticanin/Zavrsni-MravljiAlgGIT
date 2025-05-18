@@ -175,7 +175,7 @@ int main() {
     }
 
     // Log solution to file
-    string filenameTemplate = "../solutionLogs/";
+    string filenameTemplate = "./L-solutionLogs/";
     filenameTemplate += "N" + to_string(numberOfVariables) + "M" + to_string(numberOfAnts) + "I" +
                               to_string(numberOfIterations);
     int counter = 1;
