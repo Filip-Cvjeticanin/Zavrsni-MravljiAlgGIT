@@ -5,8 +5,11 @@
 #include "../headers/outputControll.h"
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 dualStream::dualStream(){
+    std::filesystem::create_directories("L-logs");
+    std::filesystem::create_directories("L-solutionLogs");
     out1 = &std::cout;
 
     bool valid = true;
