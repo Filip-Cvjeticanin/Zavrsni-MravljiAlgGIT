@@ -132,6 +132,8 @@ int main() {
             if (displayPopulationAfterSorting) displayAnt(i, antPopulation);
         }
 
+        g.evaporatePheromones();
+
         if (displayBestAnts) dout << "\nBest from population:\n";
         for (int i = 0;i < numberOfChosenAnts; i++) {
             if (displayBestAnts) {
@@ -146,7 +148,7 @@ int main() {
             antPopulation[i]->leavePheromones(&g);
         }
 
-        g.evaporatePheromones();
+
 
         if (printGraphAfterIteration) g.printGraph();
         if (drawGraphAfterIteration) g.drawGraph();
