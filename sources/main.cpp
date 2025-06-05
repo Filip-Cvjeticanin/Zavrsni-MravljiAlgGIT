@@ -15,6 +15,7 @@
 #include "../headers/FormulaParsing.h"
 #include "../headers/Ant.h"
 #include "../headers/outputControll.h"
+#include "../headers/paramSetup.h"
 
 using namespace std;
 
@@ -25,11 +26,13 @@ void displayAnt(int i, Ant* antPopulation []) {
 }
 
 int main() {
-    dout << "MravljiAlgoritam" << endl;
+    model_setup("./modelParameters.conf");
+    print_params();
+
+    dout << "\nMravljiAlgoritam" << endl;
     if (steadyConvergence) initialConcentration = numberOfChosenAnts * 2;
     numberOfChosenAnts = min(numberOfChosenAnts, numberOfAnts);
     Graph g = Graph();
-    dout << g.numberOfLayers << endl;
 
     if (initialGraphPrint) g.printGraph();
 

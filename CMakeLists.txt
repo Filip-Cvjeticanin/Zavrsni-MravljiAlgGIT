@@ -15,4 +15,6 @@ add_executable(Zavrsni_MravljiAlgoritamV2 sources/main.cpp sources/Graph.cpp
         sources/FormulaParsing.cpp
         sources/Ant.cpp
         sources/outputControll.cpp
-        headers/outputControll.h)
+        headers/outputControll.h
+        sources/paramSetup.cpp
+        headers/paramSetup.h)
