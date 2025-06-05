@@ -26,7 +26,7 @@ void displayAnt(int i, Ant* antPopulation []) {
 }
 
 int main() {
-    model_setup("./modelParameters.conf");
+    model_setup("./modelParameters.cfg");
     print_params();
 
     dout << "\nMravljiAlgoritam" << endl;
