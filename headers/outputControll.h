@@ -7,6 +7,7 @@
 #define OUTPUTCONTROLL_H
 
 #include <fstream>
+#include "../headers/parameters.h"
 
 class dualStream {
 public:
@@ -17,14 +18,14 @@ public:
 
     template<typename T>
     dualStream& operator<<(const T& val) {
-        *out1 << val;
+        if (printToConsole) *out1 << val;
         *out2 << val;
         return *this;
     }
 
     dualStream& operator<<(std::ostream& (*manip)(std::ostream&)) {
         // For manipulators like std::endl, std::flush, etc.
-        *out1 << manip;
+        if (printToConsole) *out1 << manip;
         *out2 << manip;
         return *this;
     }

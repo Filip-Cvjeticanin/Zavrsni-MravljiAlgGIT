@@ -20,6 +20,7 @@ inline bool steadyConvergence = false; // Uses a modification to the initialPher
 inline bool limitPheromones = false;
 inline double maxPheromones = 20;
 inline double excludeProbability = -1;
+inline bool printToConsole = false;
 
 
 // Setup display parameters:

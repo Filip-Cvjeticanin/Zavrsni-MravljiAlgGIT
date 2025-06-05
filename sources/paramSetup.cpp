@@ -81,6 +81,11 @@ void model_setup(const string& path) {
             result = parse_model_line(line);
             excludeProbability = stod(result);
 
+            // printToConsole
+            getline(file, line);
+            result = parse_model_line(line);
+            printToConsole = str_to_bool(result);
+
             file.close();
 
         } catch (const exception& e) {
@@ -127,4 +132,5 @@ void print_params() {
     dout << "limit pheromones: " << limitPheromones << endl;
     dout << "max pheromones: " << maxPheromones << endl;
     dout << "exclude probability: " << excludeProbability << endl;
+    dout << "printToConsole: " << printToConsole << endl;
 }

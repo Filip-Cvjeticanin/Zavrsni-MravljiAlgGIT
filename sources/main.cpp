@@ -183,7 +183,29 @@ int main() {
     }
 
     ofstream outFile;
-    outFile.open("./L-solutionLogs/" + dout.name);
+    string resultingPath = "./L-solutionLogs/";
+    resultingPath += "solution-";
+    resultingPath += dout.name;
+    outFile.open(resultingPath);
+
+    outFile << "number of iterations: " << numberOfIterations << endl;
+    outFile << "reset after: " << resetAfter << endl;
+    outFile << "number of variables: " << numberOfVariables << endl;
+    outFile << "number of antennas: " << numberOfAnts << endl;
+    outFile << "number of chosen antennas: " << numberOfChosenAnts << endl;
+    outFile << "initial concentration: " << initialConcentration << endl;
+    outFile << "diminish rate: " << diminishRate << endl;
+    outFile << "truth table: ";
+    for (int i = 0; i < pow(2,numberOfVariables); i++) {
+        outFile << truthTable[i];
+    }
+    outFile << endl;
+    outFile << "steadyConvergence: " << steadyConvergence << endl;
+    outFile << "limit pheromones: " << limitPheromones << endl;
+    outFile << "max pheromones: " << maxPheromones << endl;
+    outFile << "exclude probability: " << excludeProbability << endl;
+    outFile << "printToConsole: " << printToConsole << endl;
+
     outFile << "\n\nSimulation time: " << elapsed.count() << " ms\n";
     outFile << "\nBest fitness: " << antPopulation[0]->fitness << endl;
     outFile << "\nBest solution: " << antPopulation[0]->getFormula() << endl;
