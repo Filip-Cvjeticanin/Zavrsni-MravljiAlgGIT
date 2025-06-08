@@ -26,6 +26,7 @@ void displayAnt(int i, Ant* antPopulation []) {
 }
 
 int main() {
+
     model_setup("./modelParameters.cfg");
     print_params();
 
@@ -114,7 +115,7 @@ int main() {
 
     // Iterate.
     for (int iter = 1; iter <= numberOfIterations; iter++) {
-
+        if (printToConsole == false) if (iter % (numberOfIterations / 100) == 0) cout << "\r[COMPLETION]: " << (double) iter / numberOfIterations * 100 << "%" << flush;
         if (iterationLabel) {
             dout << "\n\n\n            =====================================================================================\n";
             dout << "            |                          ITERATION NUMBER:  " << std::setw(4) << iter << "                                   |" << std::endl;
