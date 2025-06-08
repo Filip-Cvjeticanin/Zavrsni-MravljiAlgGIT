@@ -192,8 +192,8 @@ int main() {
     outFile << "number of iterations: " << numberOfIterations << endl;
     outFile << "reset after: " << resetAfter << endl;
     outFile << "number of variables: " << numberOfVariables << endl;
-    outFile << "number of antennas: " << numberOfAnts << endl;
-    outFile << "number of chosen antennas: " << numberOfChosenAnts << endl;
+    outFile << "number of ants: " << numberOfAnts << endl;
+    outFile << "number of chosen ants: " << numberOfChosenAnts << endl;
     outFile << "initial concentration: " << initialConcentration << endl;
     outFile << "diminish rate: " << diminishRate << endl;
     outFile << "truth table: ";
