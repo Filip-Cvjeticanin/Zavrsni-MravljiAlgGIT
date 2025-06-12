@@ -100,7 +100,6 @@ int main() {
     //                                  SIMULATION START
     //                                  SIMULATION START
     //                                  SIMULATION START
-
     auto start = std::chrono::high_resolution_clock::now();
 
     Ant* antPopulation[numberOfAnts];
@@ -115,7 +114,7 @@ int main() {
 
     // Iterate.
     for (int iter = 1; iter <= numberOfIterations; iter++) {
-        if (printToConsole == false) if (iter % (numberOfIterations / 100) == 0) cout << "\r[COMPLETION]: " << (double) iter / numberOfIterations * 100 << "%" << flush;
+        if (printToConsole == false && numberOfIterations >= 100) if (iter % (numberOfIterations / 100) == 0) cout << "\r[COMPLETION]: " << (double) iter / numberOfIterations * 100 << "%" << flush;
         if (iterationLabel) {
             dout << "\n\n\n            =====================================================================================\n";
             dout << "            |                          ITERATION NUMBER:  " << std::setw(4) << iter << "                                   |" << std::endl;
@@ -186,7 +185,11 @@ int main() {
     ofstream outFile;
     string resultingPath = "./L-solutionLogs/";
     resultingPath += "solution-";
-    resultingPath += dout.name;
+    if (dout.name.length() == 8) {
+        resultingPath += dout.name.substr(0, 3);
+        resultingPath += "0";
+        resultingPath += dout.name.substr(3, 5);
+    } else resultingPath += dout.name;
     outFile.open(resultingPath);
 
     outFile << "number of iterations: " << numberOfIterations << endl;

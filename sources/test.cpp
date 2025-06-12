@@ -1,125 +1,64 @@
-//
-// Created by Filip on 5/16/2025.
-//
-
-
 #include <iostream>
-#include <cstdio>
+#include <fstream>
+#include <string>
+#include <filesystem>
 #include <vector>
-#include <cmath>
 
+namespace fs = std::filesystem;
 
-using namespace std;
-
-void split(vector<string> & vekt, string formula) {
-    formula += "+";
-    cout << formula << endl;
-    int i = 0;
-    string tmp = "";
-    while (i < formula.length()) {
-        if (formula[i] == ' ') {
-            i++;
-            continue;
-        }
-        if (formula[i] == '+') {
-            vekt.push_back(tmp);
-            tmp = "";
-        }
-        else tmp += formula[i];
-        i++;
+// Helper function to get a specific line from a file
+std::string get_line(std::ifstream& file, int target_line) {
+    file.clear();
+    file.seekg(0);
+    std::string line;
+    for (int i = 1; std::getline(file, line); ++i) {
+        if (i == target_line)
+            return line;
     }
+    return "";
 }
 
-int NOT(int x) {
-    if (x==1) return 0 ;
-    if (x==0) return 1;
-    return x;
-}
-
-int findTableIndex(int mask, const int numberRepresentation [], int nVar) {
-    int sol = 0;
-    int factor = 1;
-    for (int i = 0; i < nVar; i++) {
-        if (numberRepresentation[i] > -1) {
-            sol += numberRepresentation[i] * factor;
-        }
-        else {
-            sol += (mask % 2) * factor;
-            mask = mask / 2;
-        }
-        factor *= 2;
-    }
-    return sol;
-}
-
-void findIndexesToActivate(string member, vector<int> & switchList, int nVar) {
-
-    string uppercase="";
-    int numberRepresentation[nVar];
-
-    for (int i = 0; i < nVar; i++) {
-        numberRepresentation[i] = -1;
-    }
-
-    for (int i = 0; i < member.length(); i++) {
-        if (member[i] >= 'a' && member[i] <= 'z') {
-            uppercase += member[i] - 32;
-        }
-        else {
-            uppercase += member[i];
-        }
-    }
-
-    cout << uppercase << endl;
-
-    int value = 1;
-    for (int i = 0; i < member.length(); i++) {
-        if (uppercase[i] == '~') value = NOT(value);
-        else {
-            numberRepresentation[nVar - (member[i] - 'A') - 1] = value;
-            value = 1;
-        }
-    }
-
-    int notSet = 0;
-    for (int i = nVar - 1; i >= 0; i--) {
-        if (numberRepresentation[i] == -1) notSet++;
-        cout << numberRepresentation[i] << " ";
-    }
-    cout << "\nNot set: " << notSet << endl;
-
-    if (notSet > 0) {
-        for (int mask = 0; mask < pow(2, notSet); mask++) {
-            cout << mask << " TR: ";
-            cout << findTableIndex(mask, numberRepresentation, nVar) << endl;
-            switchList.push_back(findTableIndex(mask, numberRepresentation, nVar));
-
-        }
-    }
+// Helper function to extract value after a known prefix
+std::string extract_value(const std::string& line, const std::string& prefix) {
+    auto pos = line.find(prefix);
+    if (pos != std::string::npos)
+        return line.substr(pos + prefix.length());
+    return "";
 }
 
 int main() {
-    /*int brojVar;
-    string formula;
-    cin >> brojVar;
-    getline(cin, formula);
-    getline(cin, formula);
+    std::string directory = "C:/Docs/01 - Filip/02 - FER/060 - G3S6/00 - PROJEKT/01 - MravljiAlgoritam/01 - REZULTATI/csvExtraction";  // Change to your directory path
+    std::string output_csv = "results.csv";
 
-    vector<string> konjunkti;
-
-    split(konjunkti, formula);
-
-    for (int i = 0; i < konjunkti.size(); i++) {
-        cout << konjunkti[i] << endl;
-    }*/
-
-    vector<int> switchList;
-    findIndexesToActivate("A", switchList, 4);
-
-    cout << "Indexes that need to be set to 1 in the truth table:\n";
-    for (int i = 0; i < switchList.size(); i++) {
-        cout << switchList[i] << " ";
+    std::ofstream csv_file(output_csv);
+    if (!csv_file.is_open()) {
+        std::cerr << "Failed to open output CSV file." << std::endl;
+        return 1;
     }
 
+    //csv_file << "sep=;\n";  // CSV header
+
+    for (const auto& entry : fs::directory_iterator(directory)) {
+        if (entry.is_regular_file()) {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) {
+                std::cerr << "Failed to open file: " << entry.path() << std::endl;
+                continue;
+            }
+
+            std::string line18 = get_line(file, 18);
+            std::string line20 = get_line(file, 20);
+
+            std::string fitness = extract_value(line18, "Best fitness: ");
+            std::string solution = extract_value(line20, "Best solution: ");
+
+            if (!fitness.empty() || !solution.empty()) {
+                csv_file << fitness << ";" << solution << "\n";
+            }
+        }
+    }
+
+    csv_file.close();
+    std::cout << "Extraction completed. Data saved to " << output_csv << std::endl;
     return 0;
 }
